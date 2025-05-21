@@ -3,8 +3,6 @@ package com.rookies3.myspringbootlab.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "book_details")
 @NoArgsConstructor
@@ -19,27 +17,25 @@ public class BookDetail {
     @Column(name = "book_detail_id")
     private Long id;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column
+    @Column(name = "language")
     private String language;
 
-    @Column
-    private String publisher;
-
-    @Column
-    private String coverImageUrl;
-
-    @Column
-    private String edition;
-
-    @Column
+    @Column(name = "page_count")
     private Integer pageCount;
 
-    //1:1 지연로딩
+    @Column(name = "publisher")
+    private String publisher;
+
+    @Column(name = "cover_image_url")
+    private String coverImageUrl;
+
+    @Column(name = "edition")
+    private String edition;
+
     @OneToOne(fetch = FetchType.LAZY)
-    //@JoinColumn은 FK(외래키)에 해당하는 어노테이션
     @JoinColumn(name = "book_id", unique = true)
     private Book book;
 }

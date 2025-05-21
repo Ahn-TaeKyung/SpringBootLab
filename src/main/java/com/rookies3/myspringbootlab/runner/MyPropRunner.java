@@ -29,18 +29,21 @@ public class MyPropRunner implements ApplicationRunner {
     private MyEnvironment myEnvironment;
 
     private Logger logger = LoggerFactory.getLogger(MyPropRunner.class);
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         System.out.println("Logger 구현체 => " + logger.getClass().getName());
 
         logger.debug("${myprop.username} = {}", username);
         logger.debug("${myprop.port} = {}", port);
+        logger.debug("${myprop.username} = {}", environment.getProperty("myprop.username"));
 
-        logger.info("MyPropProperties getUsername() = {}", properties.getUsername());
-        logger.info("MyPropProperties getPort() = {}", properties.getPort());
+        logger.info("MyBootProperties getUsername() = {}", properties.getUsername());
+        logger.info("MyBootProperties getPort() = {}", properties.getPort());
         logger.info("설정된 Port 번호 = {}", environment.getProperty("local.server.port") );
 
-        logger.info("현재 활성화된 MyEnvironment Bean {}", myEnvironment);
+        logger.info("현재 활성화된 MyEnvironment Bean = {}", myEnvironment);
+
         // foo 라는 VM 아규먼트 있는지 확인
         logger.debug("VM 아규먼트 foo : {}", args.containsOption("foo"));
         // bar 라는 Program 아규먼트 있는지 확인
@@ -53,7 +56,7 @@ public class MyPropRunner implements ApplicationRunner {
          */
         // Program 아규먼트 목록 출력
         args.getOptionNames()  //Set<String>
-                .forEach(username -> System.out.println(username));
+                .forEach(name -> System.out.println(name));
 
     }//run
 }//class
